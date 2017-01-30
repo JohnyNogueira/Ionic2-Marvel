@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Page Three</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let hero of listHero">
+      <ion-thumbnail item-left>
+        <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension">
+      </ion-thumbnail>
+      <h2>{{hero.name}}</h2>
+      <p>Comics Available: {{hero.comics.available}}</p>
+      <button ion-button clear item-right>View</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
