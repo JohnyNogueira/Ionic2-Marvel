@@ -9,12 +9,14 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class ApiService {
+export class apiService {
   private apiKey: string;
   private apiUrlTemplate: string;
   private privateAPI: string;
   private ts: any;
   private hashAPI: string;
+  private perpage: number = 20;
+  private start: number = 0;
 
   ListMarvel: Subject<any> = new Subject();
   //http://gateway.marvel.com/v1/comics?ts=1&apikey=1234&hash=ffd275c5130566a2916217b101f26150
@@ -26,8 +28,8 @@ export class ApiService {
     this.apiUrlTemplate = `https://gateway.marvel.com:443/v1/public/characters?ts=${this.ts}&apikey=${this.apiKey}&hash=${this.hashAPI}`;
   }
 
-  getList(): void {
-    let url = this.apiUrlTemplate;
+  getList(start, perpage): void {
+    let url = `${this.apiUrlTemplate}&limit=${perpage}&offset=${start}`;
 
     this.http.get(url).map(response => response.json()).subscribe(
       (response) => {
