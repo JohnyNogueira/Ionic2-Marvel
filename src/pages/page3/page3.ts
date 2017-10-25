@@ -1,5 +1,3 @@
-import { ObjectUnsubscribedError } from 'rxjs/Rx';
-import { Person } from './Ipage3';
 import { Component, OnInit } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
@@ -8,9 +6,6 @@ import { LoadingController } from 'ionic-angular';
 
 //providers
 import { apiService } from '../../providers/apiService';
-
-//models
-import { MarvelHero } from '../../models/MarvelHero'
 
 @Component({
   selector: 'page-page3',
@@ -38,8 +33,6 @@ export class Page3 implements OnInit {
 
     this.apiService.ListMarvel.subscribe(
       (res) => {
-        console.log('wee', res.data.results);
-        console.log(this.listHero);
         for (let item of res.data.results) {
           this.listHero.push(item);
         }
@@ -51,7 +44,6 @@ export class Page3 implements OnInit {
   }
 
   doInfinite(infiniteScroll: any) {
-    console.log('doInfinite, start is currently ' + this.start);
     this.start += 20;
     this.getListOfHeros(this.start, this.count);
     setTimeout(() => {

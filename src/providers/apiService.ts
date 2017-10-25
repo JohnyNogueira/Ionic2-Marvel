@@ -3,10 +3,7 @@ import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 import { Md5 } from 'ts-md5/dist/md5';
 
-// Operators
 import 'rxjs/add/operator/map';
-
-
 
 @Injectable()
 export class apiService {
@@ -15,11 +12,8 @@ export class apiService {
   private privateAPI: string;
   private ts: any;
   private hashAPI: string;
-  private perpage: number = 20;
-  private start: number = 0;
-
   ListMarvel: Subject<any> = new Subject();
-  //http://gateway.marvel.com/v1/comics?ts=1&apikey=1234&hash=ffd275c5130566a2916217b101f26150
+
   constructor(public http: Http) {
     this.apiKey = '827f383cddc21c851b8a4dfbc827a29f';
     this.privateAPI = '23d17b44d9e27e1c110b8b034990809a0ba8f344';
@@ -32,12 +26,8 @@ export class apiService {
     let url = `${this.apiUrlTemplate}&limit=${perpage}&offset=${start}`;
 
     this.http.get(url).map(response => response.json()).subscribe(
-      (response) => {
-        this.ListMarvel.next(response);
-      },
-      (error) => {
-        console.error('Marvel: error while getting data!\n', error);
-      }
+      response => this.ListMarvel.next(response),
+      error => console.error('Marvel: error while getting data!\n', error)
     );
   }
 
